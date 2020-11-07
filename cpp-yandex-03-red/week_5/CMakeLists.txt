@@ -1,1 +1,3 @@
 add_subdirectory(josephus_permutation)
+add_subdirectory(group_heavy_strings)
+add_subdirectory(simple_vector_copy_assignment)
