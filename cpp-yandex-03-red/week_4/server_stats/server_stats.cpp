@@ -16,6 +16,47 @@ Stats ServeRequests(istream& input) {
   return result;
 }
 
+void MyTestBasic() {
+  const string input =
+    R"(GET / HTTP/1.1
+    POST /order HTTP/1.1
+    POST /product HTTP/1.1
+    POST /product HTTP/1.1
+    POST /product HTTP/1.1
+    GET /order HTTP/1.1
+    PUT /product HTTP/1.1
+    GET /basket HTTP/1.1
+    DELETE /product HTTP/1.1
+    GET / HTTP/1.1
+    GET / HTTP/1.1
+    GET /help HTTP/1.1
+    GET /upyachka HTTP/1.1
+    GET /unexpected HTTP/1.1
+    HEAD / HTTP/1.1)";
+
+  const map<string_view, int> expected_method_count = {
+    {"GET", 8},
+    {"PUT", 1},
+    {"POST", 4},
+    {"DELETE", 1},
+    {"UNKNOWN", 1},
+  };
+  const map<string_view, int> expected_url_count = {
+    {"/", 4},
+    {"/order", 2},
+    {"/product", 5},
+    {"/basket", 1},
+    {"/help", 1},
+    {"unknown", 2},
+  };
+
+  istringstream is(input);
+  const Stats stats = ServeRequests(is);
+
+  ASSERT_EQUAL(stats.GetMethodStats(), expected_method_count);
+  ASSERT_EQUAL(stats.GetUriStats(), expected_url_count);
+}
+
 void TestBasic() {
   const string input =
     R"(GET / HTTP/1.1
@@ -84,6 +125,7 @@ void TestAbsentParts() {
 
 int main() {
   TestRunner tr;
+  RUN_TEST(tr, MyTestBasic);
   RUN_TEST(tr, TestBasic);
   RUN_TEST(tr, TestAbsentParts);
 }

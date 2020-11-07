@@ -1,5 +1,2 @@
-add_subdirectory(stack_vector)
-add_subdirectory(translator)
-add_subdirectory(airport_counter)
-add_subdirectory(text_editor)
-add_subdirectory(server_stats)
+add_subdirectory(week_4)
+add_subdirectory(week_5)
