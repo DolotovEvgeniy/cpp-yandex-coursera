@@ -6,6 +6,7 @@
 #include <iostream>
 #include <random>
 #include <vector>
+#include <unordered_map>
 
 using namespace std;
 
@@ -13,35 +14,47 @@ using namespace std;
 template <typename TAirport>
 class AirportCounter {
 public:
-  // конструктор по умолчанию: список элементов пока пуст
-  AirportCounter();
+  AirportCounter() {
+    for (size_t i = 0; i < airports_.size(); i++) {
+        airports_[i] = make_pair(decode(i), 0u);
+    }
+  }
 
-  // конструктор от диапазона элементов типа TAirport
   template <typename TIterator>
-  AirportCounter(TIterator begin, TIterator end);
+  AirportCounter(TIterator begin, TIterator end) 
+    : AirportCounter()
+  {
+    for (auto it = begin; it != end; it++) {
+      Insert(*it);
+    }
+  }
 
-  // получить количество элементов, равных данному
-  size_t Get(TAirport airport) const;
+  size_t Get(TAirport airport) const {
+    return airports_[encode(airport)].second;
+  }
 
-  // добавить данный элемент
-  void Insert(TAirport airport);
+  void Insert(TAirport airport) {
+    airports_[encode(airport)].second++;
+  }
 
-  // удалить одно вхождение данного элемента
-  void EraseOne(TAirport airport);
+  void EraseOne(TAirport airport) {
+    airports_[encode(airport)].second--;
+  }
 
-  // удалить все вхождения данного элемента
-  void EraseAll(TAirport airport);
+  void EraseAll(TAirport airport) {
+    airports_[encode(airport)].second = 0;
+  }
 
   using Item = pair<TAirport, size_t>;
-  using Items = /* ??? */;
+  using Items = array<Item, static_cast<size_t>(TAirport::Last_)>;
 
-  // получить некоторый объект, по которому можно проитерироваться,
-  // получив набор объектов типа Item - пар (аэропорт, количество),
-  // упорядоченных по аэропорту
-  Items GetItems() const;
+  Items GetItems() const { return airports_; }
 
 private:
-  // ???
+  size_t encode(TAirport a) const { return static_cast<size_t>(a); }
+  TAirport decode(size_t c) const { return static_cast<TAirport>(c); }
+
+  Items airports_;
 };
 
 void TestMoscow() {
@@ -114,6 +127,7 @@ enum class SmallCountryAirports {
 };
 
 void TestManyConstructions() {
+  LOG_DURATION("const");
   default_random_engine rnd(20180623);
   uniform_int_distribution<size_t> gen_airport(
     0, static_cast<size_t>(SmallCountryAirports::Last_) - 1
