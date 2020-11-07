@@ -1,18 +1,66 @@
 #include <string>
+#include <list>
 #include "test_runner.h"
 using namespace std;
 
 class Editor {
- public:
+public:
   // Реализуйте конструктор по умолчанию и объявленные методы
-  Editor();
-  void Left();
-  void Right();
-  void Insert(char token);
-  void Cut(size_t tokens = 1);
-  void Copy(size_t tokens = 1);
-  void Paste();
-  string GetText() const;
+  Editor()
+    : it_(data_.begin())
+  {}
+
+  void Left() {
+    if (it_ != data_.begin()) {
+      it_--;
+    }
+  }
+
+  void Right() {
+    if (it_ != data_.end()) {
+      it_++;
+    }
+  }
+
+  void Insert(char token) {
+    it_ = data_.insert(it_, token);
+    Right();
+  }
+
+  void Cut(size_t tokens = 1) {
+    list<char>::iterator end = it_;
+    for (size_t i = 0; i < tokens; i++) {
+      if (end == data_.end()) { break; }
+      end++;
+    }
+    buffer_.assign(it_, end);
+    it_ = data_.erase(it_, end);
+  }
+
+  void Copy(size_t tokens = 1) {
+    list<char>::iterator end = it_;
+    for (size_t i = 0; i < tokens; i++) {
+      if (end == data_.end()) { break; }
+      end++;
+    }
+    buffer_.assign(it_, end);
+  }
+
+  void Paste() {
+     size_t count = distance(buffer_.begin(), buffer_.end());
+     it_ = data_.insert(it_, buffer_.begin(), buffer_.end());
+     it_ = next(it_, count);
+  }
+
+  string GetText() const {
+    return {data_.begin(), data_.end()};
+  }
+
+private:
+  list<char> data_;
+  list<char>::iterator it_;
+
+  list<char> buffer_;
 };
 
 void TypeText(Editor& editor, const string& text) {
