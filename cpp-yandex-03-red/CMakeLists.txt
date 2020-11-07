@@ -1,3 +1,4 @@
 add_subdirectory(stack_vector)
 add_subdirectory(translator)
 add_subdirectory(airport_counter)
+add_subdirectory(text_editor)
