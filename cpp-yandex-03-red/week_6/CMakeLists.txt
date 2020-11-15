@@ -1,0 +1,1 @@
+add_subdirectory(course_project_first_part)
