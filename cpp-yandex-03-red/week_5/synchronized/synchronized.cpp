@@ -19,16 +19,12 @@ public:
   {}
 
   struct Access {
-    Access(T& ref_to_value, mutex& m)
-      : lock(m)
-      , ref_to_value(ref_to_value)
-    {}
     T& ref_to_value;
     lock_guard<mutex> lock;
   };
 
   Access GetAccess() {
-    return Access(value, m);
+    return {value, lock_guard(m)};
   }
 
 private:
