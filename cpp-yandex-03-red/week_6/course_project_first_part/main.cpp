@@ -1,6 +1,7 @@
 #include "search_server.h"
 #include "parse.h"
 #include "test_runner.h"
+#include "profile.h"
 
 #include <algorithm>
 #include <iterator>
@@ -22,9 +23,13 @@ void TestFunctionality(
   istringstream queries_input(Join('\n', queries));
 
   SearchServer srv;
+  LOG_DURATION("const") {
   srv.UpdateDocumentBase(docs_input);
+  }
   ostringstream queries_output;
+  LOG_DURATION("search") {
   srv.AddQueriesStream(queries_input, queries_output);
+  }
 
   const string result = queries_output.str();
   const auto lines = SplitBy(Strip(result), '\n');
@@ -199,6 +204,40 @@ void TestBasicSearch() {
   };
   TestFunctionality(docs, queries, expected);
 }
+/*
+void TestTime() {
+  string doc = "come on everybody shake you hands";
+  vector<string> docs;
+  for (size_t i = 0; i < 50000; i++) {
+    docs.push_back(doc);
+  }
+
+  string query = "we need some help";
+  vector<string> queries;
+  for (size_t i = 0; i < 50000; i++) {
+    queries.push_back(query);
+  }
+
+  const vector<string> expected = {
+    Join(' ', vector{
+      "we need some help:",
+      "{docid: 9, hitcount: 2}",
+      "{docid: 0, hitcount: 1}"
+    }),
+    Join(' ', vector{
+      "it:",
+      "{docid: 8, hitcount: 2}",
+      "{docid: 6, hitcount: 1}",
+      "{docid: 7, hitcount: 1}",
+    }),
+    "i love this game: {docid: 2, hitcount: 4}",
+    "tell me why: {docid: 5, hitcount: 2}",
+    "dislike:",
+    "about: {docid: 3, hitcount: 2}",
+  };
+  TestFunctionality(docs, queries, expected);
+}
+*/
 
 int main() {
   TestRunner tr;
@@ -207,4 +246,7 @@ int main() {
   RUN_TEST(tr, TestHitcount);
   RUN_TEST(tr, TestRanking);
   RUN_TEST(tr, TestBasicSearch);
+  //LOG_DURATION("Time") {
+  //RUN_TEST(tr, TestTime);
+  //}
 }

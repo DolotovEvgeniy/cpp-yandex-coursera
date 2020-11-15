@@ -7,20 +7,27 @@
 #include <vector>
 #include <map>
 #include <string>
+#include <deque>
+#include <unordered_map>
+
 using namespace std;
 
 class InvertedIndex {
 public:
-  void Add(const string& document);
-  list<size_t> Lookup(const string& word) const;
+  void Add(string document);
+  vector<pair<size_t, size_t>> Lookup(const string_view& word) const;
 
   const string& GetDocument(size_t id) const {
     return docs[id];
   }
 
+  size_t docNumbers() const {
+    return docs.size();
+  }
+
 private:
-  map<string, list<size_t>> index;
-  vector<string> docs;
+  unordered_map<string_view, vector<pair<size_t, size_t>>> index;
+  deque<string> docs;
 };
 
 class SearchServer {
