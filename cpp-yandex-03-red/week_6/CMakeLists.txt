@@ -1,1 +1,2 @@
 add_subdirectory(course_project_first_part)
+add_subdirectory(course_project_second_part)

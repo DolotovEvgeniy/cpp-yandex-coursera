@@ -15,7 +15,7 @@ using namespace std;
 class InvertedIndex {
 public:
   void Add(string document);
-  vector<pair<size_t, size_t>> Lookup(const string_view& word) const;
+  const vector<pair<size_t, size_t>>& Lookup(const string_view& word) const;
 
   const string& GetDocument(size_t id) const {
     return docs[id];
