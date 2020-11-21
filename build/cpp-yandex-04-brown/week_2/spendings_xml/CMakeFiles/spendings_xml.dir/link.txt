@@ -1,0 +1,1 @@
+/usr/bin/c++    -rdynamic CMakeFiles/spendings_xml.dir/spendings_xml.cpp.o CMakeFiles/spendings_xml.dir/xml.cpp.o  -o ../bin/spendings_xml 

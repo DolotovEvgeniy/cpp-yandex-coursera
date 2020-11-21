@@ -1,0 +1,38 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+../utils/test_runner.h
+sstream
+-
+stdexcept
+-
+iostream
+-
+map
+-
+set
+-
+string
+-
+vector
+-
+unordered_map
+-
+
+/home/dolotov-e/cpp-yandex-coursera/cpp-yandex-04-brown/week_1/secondary_index/secondary_index.cpp
+test_runner.h
+/home/dolotov-e/cpp-yandex-coursera/cpp-yandex-04-brown/week_1/secondary_index/test_runner.h
+iostream
+-
+map
+-
+string
+-
+unordered_map
+-
+
