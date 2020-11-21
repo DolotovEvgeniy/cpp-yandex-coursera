@@ -1,1 +1,0 @@
-/usr/bin/c++    -rdynamic CMakeFiles/ini.dir/ini.cpp.o CMakeFiles/ini.dir/test_ini.cpp.o  -o ../bin/ini 

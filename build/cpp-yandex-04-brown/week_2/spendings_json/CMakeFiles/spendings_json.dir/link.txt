@@ -1,1 +1,0 @@
-/usr/bin/c++    -rdynamic CMakeFiles/spendings_json.dir/spendings_json.cpp.o CMakeFiles/spendings_json.dir/json.cpp.o  -o ../bin/spendings_json 

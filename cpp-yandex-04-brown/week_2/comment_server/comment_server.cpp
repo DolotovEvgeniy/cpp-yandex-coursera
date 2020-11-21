@@ -48,12 +48,6 @@ enum class HttpCode {
   Found = 302,
 };
 
-static const unordered_map<HttpCode, string> httpCodeToComment{
-  {HttpCode::Ok, "OK"},
-  {HttpCode::Found, "Found"},
-  {HttpCode::NotFound, "Not found"},
-};
-
 ostream& operator<<(ostream& output, const HttpCode& code) {
   switch (code) {
     case HttpCode::Ok:
@@ -65,7 +59,10 @@ ostream& operator<<(ostream& output, const HttpCode& code) {
     case HttpCode::NotFound:
       output << "404 Not found";
       break;
+    default:
+      throw invalid_argument("Unknown http code");
   }
+  return output;
 }
 
 class HttpResponse {

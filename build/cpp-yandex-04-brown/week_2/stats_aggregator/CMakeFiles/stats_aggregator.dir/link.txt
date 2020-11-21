@@ -1,1 +1,0 @@
-/usr/bin/c++    -rdynamic CMakeFiles/stats_aggregator.dir/main.cpp.o CMakeFiles/stats_aggregator.dir/stats_aggregator.cpp.o CMakeFiles/stats_aggregator.dir/stats_aggregator_test.cpp.o  -o ../bin/stats_aggregator 

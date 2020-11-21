@@ -1,1 +1,0 @@
-/usr/bin/c++    -rdynamic CMakeFiles/comment_server.dir/comment_server.cpp.o  -o ../bin/comment_server 
