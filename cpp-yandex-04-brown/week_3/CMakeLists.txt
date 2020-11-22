@@ -1,2 +1,5 @@
 add_subdirectory(print_stats_2)
 add_subdirectory(lazy_value)
+add_subdirectory(synchronized_2)
+add_subdirectory(concurrent_map_2)
+add_subdirectory(polynomial)
