@@ -1,0 +1,2 @@
+add_subdirectory(print_stats_2)
+add_subdirectory(lazy_value)
