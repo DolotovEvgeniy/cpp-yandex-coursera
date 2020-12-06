@@ -1,2 +1,7 @@
 add_subdirectory(demographic_stats)
 add_subdirectory(ebook)
+add_subdirectory(routes)
+add_subdirectory(team_tasks)
+add_subdirectory(hotel_booking)
+add_subdirectory(demographic_stats_tests)
+add_subdirectory(bad_domains)
