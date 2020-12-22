@@ -1,1 +1,4 @@
 add_subdirectory(bad_domain_san)
+add_subdirectory(budget_san)
+add_subdirectory(transport_guide_E_san)
+add_subdirectory(overflow_sum)
