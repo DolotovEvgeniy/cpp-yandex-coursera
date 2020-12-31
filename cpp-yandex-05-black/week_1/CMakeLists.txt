@@ -3,3 +3,7 @@ add_subdirectory(budget_san)
 add_subdirectory(transport_guide_E_san)
 add_subdirectory(overflow_sum)
 add_subdirectory(svg)
+add_subdirectory(transport_guide_G)
+add_subdirectory(transport_guide_H)
+add_subdirectory(transport_guide_I)
+
